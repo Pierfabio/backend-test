@@ -102,3 +102,7 @@ hs_err_pid*
 
 
 # End of https://www.gitignore.io/api/java,scala,kotlin,eclipse,clojure,intellij
+.idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
+backend-test.iml
