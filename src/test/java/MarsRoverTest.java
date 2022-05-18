@@ -1,7 +1,6 @@
 import coordinates.BasicCoordinates;
 import coordinates.RoverCoordinates;
 import map.MapPlanet;
-import map.MapPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
