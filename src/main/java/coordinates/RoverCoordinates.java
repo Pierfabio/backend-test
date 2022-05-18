@@ -13,7 +13,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class RoverCoordinates {
 
     private MapPoint mapPointX = new MapPoint();
@@ -25,9 +24,9 @@ public class RoverCoordinates {
 
     public RoverCoordinates(MapPlanet mapPlanet, BasicCoordinates basicCoordinates,RoverDirection direction, List<RoverObstacle> obstacles) {
         this.mapPointX.setPosition(basicCoordinates.getX());
-        this.mapPointX.setMaxPosition(mapPlanet.getHorizontalPosition());
+        this.mapPointX.setMaxPosition(mapPlanet.getHorizontalSize());
         this.mapPointY.setPosition(basicCoordinates.getY());
-        this.mapPointY.setMaxPosition(mapPlanet.getVerticalPosition());
+        this.mapPointY.setMaxPosition(mapPlanet.getVerticalSize());
         this.direction = direction;
         this.obstacles = obstacles;
     }
@@ -62,7 +61,7 @@ public class RoverCoordinates {
 
     private boolean hasObstacle(int xLocation, int yLocation) {
         for (RoverObstacle obstacle : obstacles) {
-            if (obstacle.getObstacleCoordinates().getX() == xLocation && obstacle.getObstacleCoordinates().getY() == yLocation) {
+            if (obstacle.getCoordinates().getX() == xLocation && obstacle.getCoordinates().getY() == yLocation) {
                 foundObstacle = true;
                 return true;
             }

@@ -1,7 +1,6 @@
 import coordinates.BasicCoordinates;
 import coordinates.RoverCoordinates;
 import map.MapPlanet;
-import map.MapPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +32,8 @@ public class RoverCoordinatesTest {
     public void newInstanceShouldSetXAndYParams() {
         Assertions.assertEquals(roverStartingCoordinate.getX(), coordinates.getMapPointX().getPosition());
         Assertions.assertEquals(roverStartingCoordinate.getY(), coordinates.getMapPointY().getPosition());
-        Assertions.assertEquals(planet.getHorizontalPosition(), coordinates.getMapPointX().getMaxPosition());
-        Assertions.assertEquals(planet.getVerticalPosition(), coordinates.getMapPointY().getMaxPosition());
+        Assertions.assertEquals(planet.getHorizontalSize(), coordinates.getMapPointX().getMaxPosition());
+        Assertions.assertEquals(planet.getVerticalSize(), coordinates.getMapPointY().getMaxPosition());
     }
 
     @Test

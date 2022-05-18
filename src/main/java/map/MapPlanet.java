@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MapPlanet {
 
-    private int horizontalPosition;
-    private int verticalPosition;
+    private int horizontalSize;
+    private int verticalSize;
 
 }

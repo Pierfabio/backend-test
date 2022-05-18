@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RoverObstacle {
 
-    private BasicCoordinates obstacleCoordinates;
+    private BasicCoordinates coordinates;
 
 }

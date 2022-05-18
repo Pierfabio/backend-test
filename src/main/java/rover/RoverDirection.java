@@ -15,7 +15,6 @@ public enum RoverDirection {
     private int value;
     private char name;
 
-
     public RoverDirection getBackwardDirection() {
         return values()[(this.getValue() + 2) % 4];
     }
