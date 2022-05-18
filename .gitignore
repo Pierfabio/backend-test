@@ -109,3 +109,4 @@ backend-test.iml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 target
+/.idea/
