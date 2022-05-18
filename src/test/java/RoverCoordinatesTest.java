@@ -1,5 +1,6 @@
 import coordinates.BasicCoordinates;
 import coordinates.RoverCoordinates;
+import map.MapPlanet;
 import map.MapPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,23 +16,25 @@ import java.util.List;
 public class RoverCoordinatesTest {
 
     private RoverCoordinates coordinates;
-    private MapPoint mapPointX;
-    private MapPoint mapPointY;
     private List<RoverObstacle> obstacles;
     private final RoverDirection direction = RoverDirection.NORTH;
+    private MapPlanet planet;
+    private BasicCoordinates roverStartingCoordinate = new BasicCoordinates();
 
     @BeforeEach
     public void beforeCoordinatesTest() {
-        mapPointX = new MapPoint(1, 99);
-        mapPointY = new MapPoint(2, 99);
         obstacles = Arrays.asList(new RoverObstacle(new BasicCoordinates(20,20)), new RoverObstacle(new BasicCoordinates(30,30)));
-        coordinates = new RoverCoordinates(mapPointX, mapPointY, direction, obstacles);
+        planet = new MapPlanet(99,99);
+        roverStartingCoordinate = new BasicCoordinates(1, 2);
+        coordinates = new RoverCoordinates(planet, roverStartingCoordinate, direction, obstacles);
     }
 
     @Test
     public void newInstanceShouldSetXAndYParams() {
-        Assertions.assertEquals(mapPointX, coordinates.getMapPointX());
-        Assertions.assertEquals(mapPointY, coordinates.getMapPointY());
+        Assertions.assertEquals(roverStartingCoordinate.getX(), coordinates.getMapPointX().getPosition());
+        Assertions.assertEquals(roverStartingCoordinate.getY(), coordinates.getMapPointY().getPosition());
+        Assertions.assertEquals(planet.getHorizontalPosition(), coordinates.getMapPointX().getMaxPosition());
+        Assertions.assertEquals(planet.getVerticalPosition(), coordinates.getMapPointY().getMaxPosition());
     }
 
     @Test
@@ -46,7 +49,7 @@ public class RoverCoordinatesTest {
 
     @Test
     public void moveForwardShouldIncreaseYWhenDirectionIsNorth() {
-        int expectedMapPointYPosition = mapPointY.getPosition() + 1;
+        int expectedMapPointYPosition = coordinates.getMapPointY().getPosition() + 1;
         coordinates.setDirection(RoverDirection.NORTH);
         coordinates.moveForward();
         Assertions.assertEquals(expectedMapPointYPosition, coordinates.getMapPointY().getPosition());
@@ -54,7 +57,7 @@ public class RoverCoordinatesTest {
 
     @Test
     public void moveForwardShouldIncreaseXWhenDirectionIsEast() {
-        int expectedMapPointXPosition = mapPointX.getPosition() + 1;
+        int expectedMapPointXPosition = coordinates.getMapPointX().getPosition() + 1;
         coordinates.setDirection(RoverDirection.EAST);
         coordinates.moveForward();
         Assertions.assertEquals(expectedMapPointXPosition, coordinates.getMapPointX().getPosition());
@@ -62,7 +65,7 @@ public class RoverCoordinatesTest {
 
     @Test
     public void moveForwardShouldDecreaseYWhenDirectionIsSouth() {
-        int expectedMapPointYPosition = mapPointY.getPosition() - 1;
+        int expectedMapPointYPosition = coordinates.getMapPointY().getPosition() - 1;
         coordinates.setDirection(RoverDirection.SOUTH);
         coordinates.moveForward();
         Assertions.assertEquals(expectedMapPointYPosition, coordinates.getMapPointY().getPosition());
@@ -70,7 +73,7 @@ public class RoverCoordinatesTest {
 
     @Test
     public void moveForwardShouldDecreaseXWhenDirectionIsWest() {
-        int expectedMapPointXPosition = mapPointX.getPosition() - 1;
+        int expectedMapPointXPosition = coordinates.getMapPointX().getPosition() - 1;
         coordinates.setDirection(RoverDirection.WEST);
         coordinates.moveForward();
         Assertions.assertEquals(expectedMapPointXPosition, coordinates.getMapPointX().getPosition());
