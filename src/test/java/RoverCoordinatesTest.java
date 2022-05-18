@@ -19,7 +19,7 @@ public class RoverCoordinatesTest {
     private List<RoverObstacle> obstacles;
     private final RoverDirection direction = RoverDirection.NORTH;
     private MapPlanet planet;
-    private BasicCoordinates roverStartingCoordinate = new BasicCoordinates();
+    private BasicCoordinates roverStartingCoordinate;
 
     @BeforeEach
     public void beforeCoordinatesTest() {

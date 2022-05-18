@@ -1,5 +1,6 @@
 import coordinates.BasicCoordinates;
 import coordinates.RoverCoordinates;
+import map.MapPlanet;
 import map.MapPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,19 +17,19 @@ import java.util.List;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MarsRoverTest {
 
-    private MapPoint mapPointX;
-    private MapPoint mapPointY;
     private MarsRover rover;
     private RoverCoordinates roverCoordinates;
     private final RoverDirection direction = RoverDirection.NORTH;
     private List<RoverObstacle> obstacles;
+    private MapPlanet planet;
+    private BasicCoordinates roverStartingCoordinate;
 
     @BeforeEach
     public void beforeRoverTest() {
-        mapPointX = new MapPoint(1, 2);
-        mapPointY = new MapPoint(2, 9);
+        planet = new MapPlanet(2,9);
+        roverStartingCoordinate = new BasicCoordinates(1, 2);
         List<RoverObstacle> obstacles = new ArrayList<>();
-        roverCoordinates = new RoverCoordinates(mapPointX, mapPointY, direction, obstacles);
+        roverCoordinates = new RoverCoordinates(planet, roverStartingCoordinate, direction, obstacles);
         rover = new MarsRover(roverCoordinates);
     }
 
@@ -39,14 +40,14 @@ public class MarsRoverTest {
 
     @Test
     public void receiveSingleCommandShouldMoveForwardWhenCommandIsF() throws Exception {
-        int expectedMapPointYPosition = mapPointY.getPosition() + 1;
+        int expectedMapPointYPosition = roverCoordinates.getMapPointY().getPosition() + 1;
         rover.receiveCommand('F');
         Assertions.assertEquals(expectedMapPointYPosition, rover.getCoordinates().getMapPointY().getPosition());
     }
 
     @Test
     public void receiveSingleCommandShouldMoveBackwardWhenCommandIsB() throws Exception {
-        int expectedMapPointYPosition = mapPointY.getPosition() - 1;
+        int expectedMapPointYPosition = roverCoordinates.getMapPointY().getPosition() - 1;
         rover.receiveCommand('B');
         Assertions.assertEquals(expectedMapPointYPosition, rover.getCoordinates().getMapPointY().getPosition());
 
@@ -78,7 +79,8 @@ public class MarsRoverTest {
 
     @Test
     public void positionReturnedYESWhenObstacleIsFound() throws Exception {
-        rover.getCoordinates().setObstacles(Arrays.asList(new RoverObstacle(new BasicCoordinates(mapPointX.getPosition() + 1, mapPointY.getPosition()))));
+        rover.getCoordinates().setObstacles(Arrays.asList(
+                new RoverObstacle(new BasicCoordinates(roverCoordinates.getMapPointX().getPosition() + 1, roverCoordinates.getMapPointY().getPosition()))));
         rover.getCoordinates().setDirection(RoverDirection.EAST);
         rover.receiveCommand('F');
         Assertions.assertTrue(rover.getPosition().contains("YES"));
@@ -86,7 +88,8 @@ public class MarsRoverTest {
 
     @Test
     public void positionReturnedNOWhenNoObstacleIsFound() throws Exception {
-        rover.getCoordinates().setObstacles(Arrays.asList(new RoverObstacle(new BasicCoordinates(mapPointX.getPosition() + 1, mapPointY.getPosition()))));
+        rover.getCoordinates().setObstacles(Arrays.asList(
+                new RoverObstacle(new BasicCoordinates(roverCoordinates.getMapPointX().getPosition() + 1, roverCoordinates.getMapPointY().getPosition()))));
         rover.getCoordinates().setDirection(RoverDirection.NORTH);
         rover.receiveCommand('F');
         Assertions.assertTrue(rover.getPosition().contains("NO"));
