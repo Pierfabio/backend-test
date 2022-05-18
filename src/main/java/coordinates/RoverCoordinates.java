@@ -1,5 +1,6 @@
 package coordinates;
 
+import map.MapPlanet;
 import map.MapPoint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,16 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 public class RoverCoordinates {
 
-    private MapPoint mapPointX;
-    private MapPoint mapPointY;
+    private MapPoint mapPointX = new MapPoint();
+    private MapPoint mapPointY = new MapPoint();
     private RoverDirection direction;
     private List<RoverObstacle> obstacles;
 
     private boolean foundObstacle = false;
 
-    public RoverCoordinates(MapPoint mapPointX, MapPoint mapPointY, RoverDirection direction, List<RoverObstacle> obstacles) {
-        this.mapPointX = mapPointX;
-        this.mapPointY = mapPointY;
+    public RoverCoordinates(MapPlanet mapPlanet, BasicCoordinates basicCoordinates,RoverDirection direction, List<RoverObstacle> obstacles) {
+        this.mapPointX.setPosition(basicCoordinates.getX());
+        this.mapPointX.setMaxPosition(mapPlanet.getHorizontalPosition());
+        this.mapPointY.setPosition(basicCoordinates.getY());
+        this.mapPointY.setMaxPosition(mapPlanet.getVerticalPosition());
         this.direction = direction;
         this.obstacles = obstacles;
     }
