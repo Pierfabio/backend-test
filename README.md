@@ -1,4 +1,4 @@
-# MY SOLUTION
+# MARS ROVER
 
 During this project I refactored the existing code and implemented some features in order to achieve the main goal of make the code more understandable and let the Rover to be able to run safetely on Mars.
 
